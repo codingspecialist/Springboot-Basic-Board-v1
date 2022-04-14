@@ -28,3 +28,31 @@ CREATE TABLE board (
   nickname VARCHAR(20)
 );
 ```
+
+### 직접 EntityManager로 select 하려면 힘듬
+```java
+   // 1. 쿼리 작성
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM board ORDER BY id DESC");
+
+        // 2. 쿼리 준비
+        Query query = em.createNativeQuery(sb.toString());
+
+        // 3. 쿼리 실행
+        List<?> results = query.getResultList();
+        List<Board> boards = results.stream()
+                .map(objArr -> {
+                    Object[] rs = (Object[]) objArr;
+                    Integer id = (Integer) rs[0];
+                    String title = (String) rs[1];
+                    String content = (String) rs[2];
+                    String nickname = (String) rs[3];
+
+                    Board board = new Board(id, title, content, nickname);
+                    return board;
+                }).collect(Collectors.toList());
+
+        System.out.println(boards.size()); // 1
+        System.out.println(boards.get(0).getNickname()); // 메타코딩
+
+```
