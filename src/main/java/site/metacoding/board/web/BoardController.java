@@ -1,5 +1,7 @@
 package site.metacoding.board.web;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,15 @@ public class BoardController {
     }
 
     @GetMapping("/board/{id}")
-    public String boardList(@PathVariable Integer id) {
+    public String boardList(@PathVariable Integer id, Model model) {
+        Optional<Board> boardOp = boardRepository.findById(id);
+
+        if (boardOp.isPresent()) {
+            model.addAttribute("board", boardOp.get());
+        } else { // 없으면?
+            return "error";
+        }
+
         return "boardDetail";
     }
 
