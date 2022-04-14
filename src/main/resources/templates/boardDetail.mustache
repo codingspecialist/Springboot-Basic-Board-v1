@@ -21,7 +21,7 @@
 
         <a href="/" class="btn btn-success">홈으로</a>
         <a href="/board/updateForm" class="btn btn-warning">수정</a>
-        <button class="btn btn-danger" onclick="deleteBoard()">삭제</button>
+        <button class="btn btn-danger" onclick="deleteBoard({{board.id}})">삭제</button>
 
         <table class="table">
             <thead>
@@ -46,8 +46,18 @@
     </div>
 
     <script>
-        function deleteBoard() {
-            alert("삭제하는 함수");
+        async function deleteBoard(boardId) {
+            alert("삭제하는 함수 : " + boardId);
+            let response = await fetch("/api/board/" + boardId, {
+                method: "DELETE"
+            });
+            console.log(response);
+            let responseParse = await response.text(); // 내가 json이 아니라 string을 리턴했네
+
+            if (response.status === 200) { // HTTP 상태코드 200은 통신 성공이라는 뜻
+                alert(responseParse);
+                location.href = "/";
+            }
         }
     </script>
 
