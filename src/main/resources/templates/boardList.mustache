@@ -31,24 +31,14 @@
                 </tr>
             </thead>
             <tbody>
+                {{#boards}}
                 <tr>
-                    <td>1</td>
-                    <td><a href="/board/1">제목입니다</a></td>
-                    <td>내용입니다</td>
-                    <td>별명입니다</td>
+                    <td>{{id}}</td>
+                    <td><a href="/board/{{id}}">{{title}}</a></td>
+                    <td>{{content}}</td>
+                    <td>{{nickname}}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td><a href="/board/2">제목입니다</a></td>
-                    <td>내용입니다</td>
-                    <td>별명입니다</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td><a href="/board/3">제목입니다</a></td>
-                    <td>내용입니다</td>
-                    <td>별명입니다</td>
-                </tr>
+                {{/boards}}
             </tbody>
         </table>
     </div>

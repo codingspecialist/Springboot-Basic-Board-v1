@@ -1,6 +1,7 @@
 package site.metacoding.board.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,8 @@ public class BoardController {
     private final BoardRepository boardRepository;
 
     @GetMapping({ "/", "/board" })
-    public String boardList() {
+    public String boardList(Model model) {
+        model.addAttribute("boards", boardRepository.findAll());
         return "boardList";
     }
 
